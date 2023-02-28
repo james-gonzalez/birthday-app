@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    environment:
+      - PORT=8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - type: volume
+        source: sqlite
+        target: /opt/sqlite
+        volume:
+          nocopy: true
+  app2:
+    build: .
+    environment:
+      - PORT=5001
+    ports:
+      - "5001:5001"
+    volumes:
+      - type: volume
+        source: sqlite
+        target: /opt/sqlite
+        volume:
+          nocopy: true
+
+volumes:
+  sqlite:
