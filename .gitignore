@@ -1,17 +1,4 @@
-#  Local .terraform directories
-.terraform
-
-# .tfstate files
-*.tfstate
-*.tfstate.*
-
-# terraform plan
-*_terraplan
-
-# terragrunt
-.terragrunt-cache
-
-# MAC files
+# macOS files
 *.DS_Store
 
 # VSCode
