@@ -30,7 +30,7 @@ def put_user(username, dateOfBirth):
         c.execute("""INSERT INTO hello VALUES (?, ?)""", (username, dateOfBirth))
     conn.commit()
 
-    return jsonify(messaage="User data saved successfully.")
+    return jsonify(message="User data saved successfully.")
 
 
 def get_user(username):
@@ -53,14 +53,14 @@ def get_user(username):
         # return greeting message based on days until next birthday
         if delta_days == 364:
             # return f'Hello {username}! Happy birthday!'
-            return jsonify(messaage=f"Hello {username}! Happy birthday!")
+            return jsonify(message=f"Hello {username}! Happy birthday!")
         elif delta_days == 0:
             # return f'Hello {username}! Your birthday is tomorrow!'
-            return jsonify(messaage=f"Hello {username}! Your birthday is tomorrow!")
+            return jsonify(message=f"Hello {username}! Your birthday is tomorrow!")
         else:
             # return f'Hello {username}! Your birthday is in {delta_days} days!'
             return jsonify(
-                messaage=f"Hello {username}! Your birthday is in {delta_days} days!"
+                message=f"Hello {username}! Your birthday is in {delta_days} days!"
             )
     else:
         # return f'Hello {username}! I dont know your birthday.'
@@ -71,7 +71,7 @@ def get_user(username):
 def put_hello(username):
     # Check if username contains only letters
     if not username.isalpha():
-        return "Invalid username. It must contain only letters."
+        return jsonify(messaage="Invalid username. It must contain only letters.")
 
     data = request.get_json()
 
@@ -82,7 +82,7 @@ def put_hello(username):
     today = datetime.date.today()
 
     if dateObject.date() > today:
-        return "Error: The date must be in the past."
+        return jsonify(messaage="Error: The date must be in the past.")
     else:
         put_user(username, dob)
 
@@ -93,8 +93,7 @@ def put_hello(username):
 def get_hello(username):
     greeting = get_user(username)
 
-    return greeting
-
+    return jsonify(messaage=greeting)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=os.environ.get("PORT"), use_debugger=False)
