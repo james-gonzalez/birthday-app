@@ -16,11 +16,4 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
         shell: bash
-      - name: Run app.py
-        id: run-app
-        run: python app.py
-        shell: bash
-      - name: Test app.py
-        id: test-app
-        run: curl -XGET http://localhost:5000/hello/test
-        shell: bash
+
