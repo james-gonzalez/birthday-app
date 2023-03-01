@@ -5,9 +5,7 @@ from src.app import app
 
 def test_get_route():
     response = app.test_client().get("/hello/john")
-
     assert response.status_code == 200
-    # assert response.data.decode('utf-8') == 'Testing, Flask!'
 
 
 def test_put_route():
