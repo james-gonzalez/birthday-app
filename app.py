@@ -1,13 +1,10 @@
-# import modules
 import sqlite3
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import datetime
 import os
 
-# create Flask app
 app = Flask(__name__)
 
-# create database connection
 conn = sqlite3.connect('/opt/sqlite/users.db', check_same_thread=False)
 c = conn.cursor()
 
@@ -26,8 +23,10 @@ def put_user(username, dateOfBirth):
         # insert new row
         c.execute('''INSERT INTO hello VALUES (?, ?)''', (username, dateOfBirth))
     conn.commit()
-    # Return a success message
-    return "User data saved successfully."
+    
+    return jsonify(
+    			messaage="User data saved successfully."
+    		)
 
 def get_user(username):
     # query table for username and dateOfBirth
