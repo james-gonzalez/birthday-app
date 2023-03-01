@@ -4,7 +4,7 @@ RUN apk add --no-cache python3 py3-pip curl bash git
 
 WORKDIR /opt
 
-ADD app.py .
+ADD src/app.py .
 ADD requirements.txt .
 
 RUN pip install -r /opt/requirements.txt

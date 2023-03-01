@@ -6,3 +6,6 @@
 
 # IntelliJ
 .idea
+
+# app specific
+users.db
