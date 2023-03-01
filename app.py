@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 
-conn = sqlite3.connect('/opt/sqlite/users.db', check_same_thread=False)
+conn = sqlite3.connect('users.db', check_same_thread=False)
 c = conn.cursor()
 
 # create table if it doesn't exist
