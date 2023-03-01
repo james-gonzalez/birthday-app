@@ -48,13 +48,25 @@ def get_user(username):
         
         # return greeting message based on days until next birthday
         if delta_days == 364:
-            return f'Hello {username}! Happy birthday!'
+            #return f'Hello {username}! Happy birthday!'
+            return jsonify(
+    			messaage=f'Hello {username}! Happy birthday!'
+    		)
         elif delta_days == 0:
-            return f'Hello {username}! Your birthday is tomorrow!'
+            #return f'Hello {username}! Your birthday is tomorrow!'
+            return jsonify(
+    			messaage=f'Hello {username}! Your birthday is tomorrow!'
+    		)
         else:
-            return f'Hello {username}! Your birthday is in {delta_days} days!'
+            #return f'Hello {username}! Your birthday is in {delta_days} days!'
+            return jsonify(
+    			messaage=f'Hello {username}! Your birthday is in {delta_days} days!'
+    		)
     else:
-       return f'Hello {username}! I dont know your birthday.'
+       #return f'Hello {username}! I dont know your birthday.'
+    	return jsonify(
+    		messaage=f'Hello {username}! I dont know your birthday.'
+    	)
 
 @app.route('/hello/<username>', methods=['PUT'])
 def put_hello(username):
