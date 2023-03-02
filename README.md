@@ -84,6 +84,8 @@ To test locally:
 serverless wsgi serve
 ```
 
+**Note:** If you want to avoid the prefix in the uri from API Gateway, you need to utilise custom-domains, read about them here: https://www.serverless.com/blog/serverless-api-gateway-domain/
+
 ## Testing
 
 You can find [pytest](https://docs.pytest.org/en/7.2.x/) test coverage under `./tests/` to cover each of the API call conditions set out above.
