@@ -22,6 +22,5 @@ functions:
   app:
     handler: wsgi_handler.handler
     events:
-      - http: ANY /
-      - http: 'GET /'
-      - http: 'PUT /'
+      - http: 'ANY /'
+      - http: 'ANY /{proxy+}'
