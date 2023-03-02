@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/james-gonzalez/birthday-app/compare/v1.0.0...v1.1.0) (2023-03-02)
+
+
+### Bug Fixes
+
+* **app:** typo in return/fix json ([825d170](https://github.com/james-gonzalez/birthday-app/commit/825d1703c5206c646074c836d7fcf5941fc1ad67))
+
+
+### Features
+
+* **app:** always return json ([e6169c8](https://github.com/james-gonzalez/birthday-app/commit/e6169c8092fe4e86647ec9193857d44882d8a642))
+
 # 1.0.0 (2023-03-01)
 
 
