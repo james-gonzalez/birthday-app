@@ -1,8 +1,6 @@
 # birthday-app
 
-Saves/updates the given user’s name and date of birth in a sqlite database.
-
-This is just an sample application created as a demo.
+A Python application, using the Flask module to serve 2 http methods, one to get a users date of birth and another to set any users date of birth. The state is saved in an AWS DynamoDB table, NoSQL database. Please see below for more information.
 
 ## Requirements
 
