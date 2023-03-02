@@ -1,43 +1,55 @@
-import sqlite3
+import boto3
+from boto3.dynamodb.conditions import Key
 from flask import Flask, request, jsonify
 import datetime
 import os
 
 app = Flask(__name__)
 
-conn = sqlite3.connect("users.db", check_same_thread=False)
-c = conn.cursor()
+dynamodb = boto3.resource("dynamodb")
 
-# create table if it doesn't exist
-c.execute(
-    """CREATE TABLE IF NOT EXISTS hello (username TEXT PRIMARY KEY, dateOfBirth TEXT)"""
-)
-conn.commit()
+table = dynamodb.Table("users")
+
+table_name = "users"
+primary_key = "username"
+sort_key = "dateofbirth"
+
+read_capacity = 5
+write_capacity = 5
+
+try:
+    table = dynamodb.create_table(
+        TableName=table_name,
+        KeySchema=[
+            {"AttributeName": primary_key, "KeyType": "HASH"},  # partition key
+            {"AttributeName": sort_key, "KeyType": "RANGE"},  # sort key
+        ],
+        AttributeDefinitions=[
+            {"AttributeName": primary_key, "AttributeType": "S"},  # string type
+            {"AttributeName": sort_key, "AttributeType": "S"},  # string type
+        ],
+        ProvisionedThroughput={
+            "ReadCapacityUnits": read_capacity,
+            "WriteCapacityUnits": write_capacity,
+        },
+    )
+    # wait until the table exists
+    table.meta.client.get_waiter("table_exists").wait(TableName=table_name)
+    print(f"Table {table_name} created successfully.")
+except Exception as e:
+    print(f"Could not create table {table_name}.")
+    print(e)
 
 
-def put_user(username, dateOfBirth):
-    # Insert or replace the user's data into the table
-    c.execute("""SELECT * FROM hello WHERE username = ?""", (username,))
-    row = c.fetchone()
-    if row:
-        # update existing row
-        c.execute(
-            """UPDATE hello SET dateOfBirth = ? WHERE username = ?""",
-            (dateOfBirth, username),
-        )
-    else:
-        # insert new row
-        c.execute("""INSERT INTO hello VALUES (?, ?)""", (username, dateOfBirth))
-    conn.commit()
+def put_user(username, dob):
+    # insert or replace the user's data into the table
+    table.put_item(Item={"username": username, "dateofbirth": dob})
 
 
 def get_user(username):
-    # query table for username and dateOfBirth
-    c.execute("""SELECT * FROM hello WHERE username = ?""", (username,))
-    row = c.fetchone()
-    if row:
-        # get dateOfBirth from row
-        dob = row[1]
+    response = table.query(KeyConditionExpression=Key("username").eq(username))
+    if response["Items"]:
+        dob = response["Items"][0]["dateofbirth"]
         # convert dateOfBirth to datetime object
         dob_dt = datetime.datetime.strptime(dob, "%Y-%m-%d")
         # get today's date as datetime object
@@ -48,29 +60,21 @@ def get_user(username):
             next_birthday_dt = next_birthday_dt.replace(year=today_dt.year + 1)
         delta_days = (next_birthday_dt - today_dt).days
 
+        # return greeting message based on days until next birthday
         if delta_days == 364:
-            response = jsonify({"message": f"Hello {username}! Happy birthday!"})
-            response.status_code = 200
-            return response
+            return jsonify(message=f"Hello {username}! Happy birthday!")
         elif delta_days == 0:
-            response = jsonify(
-                {"message": f"Hello {username}! Your birthday is tomorrow!"}
-            )
-            response.status_code = 200
-            return response
+            return jsonify(message=f"Hello {username}! Your birthday is tomorrow!")
         else:
-            response = jsonify(
-                {"message": f"Hello {username}! Your birthday is in {delta_days} days!"}
+            return jsonify(
+                message=f"Hello {username}! Your birthday is in {delta_days} days!"
             )
-            response.status_code = 200
-            return response
     else:
         return jsonify(message=f"Hello {username}! I dont know your birthday.")
 
 
 @app.route("/hello/<username>", methods=["PUT"])
 def put_hello(username):
-    # Check if username contains only letters
     if not username.isalpha():
         return jsonify(message="Invalid username. It must contain only letters.")
 

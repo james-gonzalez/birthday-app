@@ -7,7 +7,7 @@ This is just an sample application created as a demo.
 ## Requirements
 
 - Python 3.6+
-- SQLite3
+- AWS DynamoDB
 
 ## API calls
 
