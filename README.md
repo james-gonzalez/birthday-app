@@ -6,10 +6,11 @@ This is just an sample application created as a demo.
 
 ## Requirements
 
-- Python 3.6+
-- AWS DynamoDB
-- Pytest (For testing)
-- Serverless (For deployment)
+- [Python 3.7+](https://www.python.org/downloads/)
+- [AWS Credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+- [AWS DynamoDB](https://aws.amazon.com/dynamodb/)
+- [Pytest](https://docs.pytest.org) (For testing)
+- [Serverless](https://github.com/serverless/serverless) (For deployment)
 
 ## API calls
 
