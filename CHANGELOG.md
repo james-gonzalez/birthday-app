@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/james-gonzalez/birthday-app/compare/v2.0.0...v2.0.1) (2023-03-02)
+
+
+### Bug Fixes
+
+* remove dockerfile/docker-compose ([d0ba641](https://github.com/james-gonzalez/birthday-app/commit/d0ba64153ef99f2ad51a50c6776afc5f949607cb))
+
 # [2.0.0](https://github.com/james-gonzalez/birthday-app/compare/v1.2.0...v2.0.0) (2023-03-02)
 
 
