@@ -84,3 +84,6 @@ serverless logs -f app
 You can find [pytest](https://docs.pytest.org/en/7.2.x/) test coverage under `./tests/` to cover each of the API call conditions set out above.
 
 Simply run `pytest` in the root of the repo.
+
+## Diagram
+![Diagram](/diagrams/birthday-app.png)
