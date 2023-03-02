@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/james-gonzalez/birthday-app/compare/v1.1.0...v1.2.0) (2023-03-02)
+
+
+### Bug Fixes
+
+* **serverless:** allow call sub uris ([77f9882](https://github.com/james-gonzalez/birthday-app/commit/77f9882b10c7b45443dbe4929a9b45a756f697cb))
+* update requirements.txt ([6d1a524](https://github.com/james-gonzalez/birthday-app/commit/6d1a524cf36ade8365bb3e7639e356346c25c165))
+
+
+### Features
+
+* serverless.yml ([c9810e1](https://github.com/james-gonzalez/birthday-app/commit/c9810e15ab50ec1728bb37c83ff9d505b7f79010))
+
 # [1.1.0](https://github.com/james-gonzalez/birthday-app/compare/v1.0.0...v1.1.0) (2023-03-02)
 
 
