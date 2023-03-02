@@ -8,6 +8,7 @@ This is just an sample application created as a demo.
 
 - Python 3.6+
 - AWS DynamoDB
+- Pytest (For testing)
 
 ## API calls
 
@@ -49,15 +50,8 @@ To get the user `tom` birthday
 curl -XPUT http://localhost:5000/hello/tom
 ```
 
-## Docker
-
-Included is a `Dockerfile` and a `docker-compose` file which allow you to easily test
-the application, with the `docker-compose` file you can see that you can run multiple
-replicas calling the same volume/dataset.
-
-Simply run `docker-compose up -d` to get stated.
-
-
 ## Testing
 
 You can find [pytest](https://docs.pytest.org/en/7.2.x/) test coverage under `./tests/` to cover each of the API call conditions set out above.
+
+Simply run `pytest` in the root of the repo.
