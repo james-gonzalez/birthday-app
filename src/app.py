@@ -6,11 +6,39 @@ import os
 
 app = Flask(__name__)
 
-# create a dynamodb resource
 dynamodb = boto3.resource("dynamodb")
 
-# create a table object
 table = dynamodb.Table("users")
+
+table_name = "users"
+primary_key = "username"
+sort_key = "dateofbirth"
+
+read_capacity = 5
+write_capacity = 5
+
+try:
+    table = dynamodb.create_table(
+        TableName=table_name,
+        KeySchema=[
+            {"AttributeName": primary_key, "KeyType": "HASH"},  # partition key
+            {"AttributeName": sort_key, "KeyType": "RANGE"},  # sort key
+        ],
+        AttributeDefinitions=[
+            {"AttributeName": primary_key, "AttributeType": "S"},  # string type
+            {"AttributeName": sort_key, "AttributeType": "S"},  # string type
+        ],
+        ProvisionedThroughput={
+            "ReadCapacityUnits": read_capacity,
+            "WriteCapacityUnits": write_capacity,
+        },
+    )
+    # wait until the table exists
+    table.meta.client.get_waiter("table_exists").wait(TableName=table_name)
+    print(f"Table {table_name} created successfully.")
+except Exception as e:
+    print(f"Could not create table {table_name}.")
+    print(e)
 
 
 def put_user(username, dob):
@@ -19,8 +47,6 @@ def put_user(username, dob):
 
 
 def get_user(username):
-    # query table for username and dateOfBirth
-    # use the get_item method with a consistent read option
     response = table.query(KeyConditionExpression=Key("username").eq(username))
     if response["Items"]:
         dob = response["Items"][0]["dateofbirth"]
@@ -36,13 +62,10 @@ def get_user(username):
 
         # return greeting message based on days until next birthday
         if delta_days == 364:
-            # return f'Hello {username}! Happy birthday!'
             return jsonify(message=f"Hello {username}! Happy birthday!")
         elif delta_days == 0:
-            # return f'Hello {username}! Your birthday is tomorrow!'
             return jsonify(message=f"Hello {username}! Your birthday is tomorrow!")
         else:
-            # return f'Hello {username}! Your birthday is in {delta_days} days!'
             return jsonify(
                 message=f"Hello {username}! Your birthday is in {delta_days} days!"
             )
@@ -52,7 +75,6 @@ def get_user(username):
 
 @app.route("/hello/<username>", methods=["PUT"])
 def put_hello(username):
-    # Check if username contains only letters
     if not username.isalpha():
         return jsonify(message="Invalid username. It must contain only letters.")
 
