@@ -56,3 +56,8 @@ the application, with the `docker-compose` file you can see that you can run mul
 replicas calling the same volume/dataset.
 
 Simply run `docker-compose up -d` to get stated.
+
+
+## Testing
+
+You can find [pytest](https://docs.pytest.org/en/7.2.x/) test coverage under `./tests/` to cover each of the API call conditions set out above.
