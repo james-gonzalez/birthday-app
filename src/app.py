@@ -30,8 +30,6 @@ def put_user(username, dateOfBirth):
         c.execute("""INSERT INTO hello VALUES (?, ?)""", (username, dateOfBirth))
     conn.commit()
 
-    return jsonify(messaage="User data saved successfully.")
-
 
 def get_user(username):
     # query table for username and dateOfBirth
@@ -50,28 +48,31 @@ def get_user(username):
             next_birthday_dt = next_birthday_dt.replace(year=today_dt.year + 1)
         delta_days = (next_birthday_dt - today_dt).days
 
-        # return greeting message based on days until next birthday
         if delta_days == 364:
-            # return f'Hello {username}! Happy birthday!'
-            return jsonify(messaage=f"Hello {username}! Happy birthday!")
+            response = jsonify({"message": f"Hello {username}! Happy birthday!"})
+            response.status_code = 200
+            return response
         elif delta_days == 0:
-            # return f'Hello {username}! Your birthday is tomorrow!'
-            return jsonify(messaage=f"Hello {username}! Your birthday is tomorrow!")
-        else:
-            # return f'Hello {username}! Your birthday is in {delta_days} days!'
-            return jsonify(
-                messaage=f"Hello {username}! Your birthday is in {delta_days} days!"
+            response = jsonify(
+                {"message": f"Hello {username}! Your birthday is tomorrow!"}
             )
+            response.status_code = 200
+            return response
+        else:
+            response = jsonify(
+                {"message": f"Hello {username}! Your birthday is in {delta_days} days!"}
+            )
+            response.status_code = 200
+            return response
     else:
-        # return f'Hello {username}! I dont know your birthday.'
-        return jsonify(messaage=f"Hello {username}! I dont know your birthday.")
+        return jsonify(message=f"Hello {username}! I dont know your birthday.")
 
 
 @app.route("/hello/<username>", methods=["PUT"])
 def put_hello(username):
     # Check if username contains only letters
     if not username.isalpha():
-        return "Invalid username. It must contain only letters."
+        return jsonify(message="Invalid username. It must contain only letters.")
 
     data = request.get_json()
 
@@ -82,7 +83,7 @@ def put_hello(username):
     today = datetime.date.today()
 
     if dateObject.date() > today:
-        return "Error: The date must be in the past."
+        return jsonify(message="Error: The date must be in the past.")
     else:
         put_user(username, dob)
 
