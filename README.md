@@ -79,6 +79,11 @@ To view logs/debug:
 serverless logs -f app
 ```
 
+To test locally:
+```
+serverless wsgi serve
+```
+
 ## Testing
 
 You can find [pytest](https://docs.pytest.org/en/7.2.x/) test coverage under `./tests/` to cover each of the API call conditions set out above.
