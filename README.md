@@ -9,6 +9,7 @@ This is just an sample application created as a demo.
 - Python 3.6+
 - AWS DynamoDB
 - Pytest (For testing)
+- Serverless (For deployment)
 
 ## API calls
 
@@ -48,6 +49,34 @@ curl -XPUT http://localhost:5000/hello/tom --data '{ "dateOfBirth": "1985-01-21"
 To get the user `tom` birthday
 ```
 curl -XPUT http://localhost:5000/hello/tom
+```
+
+## Deployment to AWS - Serverless
+
+We use the [serverless](https://github.com/serverless/serverless) framework to give us a very simple way to provision all of the resources we require to deploy a stateful web-applcation to the cloud.
+
+Please see `./serverless.yml` for reference.
+
+### How to deploy
+
+Make sure you have serverless installed:
+```bash
+npm install -g serverless
+```
+
+To deploy:
+```bash
+serverless deploy
+```
+
+To remove:
+```
+serverless remove
+```
+
+To view logs/debug:
+```
+serverless logs -f app
 ```
 
 ## Testing
