@@ -1,3 +1,18 @@
+# [2.0.0](https://github.com/james-gonzalez/birthday-app/compare/v1.2.0...v2.0.0) (2023-03-02)
+
+
+### Features
+
+* **app:** create dynamodb table ([b8882bc](https://github.com/james-gonzalez/birthday-app/commit/b8882bc4f413c436c053cfb59b2f472b47cd2b1e))
+* **app:** use dynamodb instead of sqlite ([a2b8edd](https://github.com/james-gonzalez/birthday-app/commit/a2b8edd38c3a0bed6a6759fbf08f12367aec6446))
+* **serverless:** dynamodb ([a8b61e1](https://github.com/james-gonzalez/birthday-app/commit/a8b61e16c9288904be3b603a65320e933da1e2ca))
+
+
+### BREAKING CHANGES
+
+* **app:** This requires an entirely new
+database backend
+
 # [1.2.0](https://github.com/james-gonzalez/birthday-app/compare/v1.1.0...v1.2.0) (2023-03-02)
 
 
