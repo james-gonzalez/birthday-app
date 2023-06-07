@@ -58,9 +58,12 @@ Please see `./serverless.yml` for reference.
 
 ### How to deploy
 
-Make sure you have serverless installed:
+Make sure you have serverless and the required plugins installed:
 ```bash
 npm install -g serverless
+serverless plugin install -n serverless-python-requirements
+serverless plugin install -n serverless-wsgi
+serverless plugin install -n serverless-dynamodb-local
 ```
 
 To deploy:
